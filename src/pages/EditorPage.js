@@ -6,12 +6,15 @@ import { IoCopy } from "react-icons/io5";
 import { TbCopy } from "react-icons/tb";
 import Editor from "../components/Editor";
 import { initSocket } from "../socket";
+import Logo from "../utils/codedekho.jpg"
 import {
   useLocation,
   useNavigate,
   Navigate,
   useParams,
 } from "react-router-dom";
+import Codeeditor from "../components/Codeeditor";
+import MainEditor from "../components/MainEditor";
 
 const EditorPage = () => {
   const socketRef = useRef(null);
@@ -92,13 +95,14 @@ const EditorPage = () => {
     <div className="mainWrap">
       <div className="aside">
         <div className="asideInner">
-          <div className="logo">
-            <h1 className="heading"> Code Dheko </h1>
+          <div className="logo flex justify-center items-center">
+          <img src={Logo} alt="logo" className="h-[3rem]"/>
+            {/* <h1 className="heading"> Code Dheko </h1> */}
           </div>
 
-          <div className="filestr">
-            <div className="jsfile"> index.js</div>
-          </div>
+          {/* <div className="filestr">
+            <div className="jsfile bg-black"> index.js</div>
+          </div> */}
 
           <h3>Contributors</h3>
           <div className="clientsList">
@@ -110,27 +114,24 @@ const EditorPage = () => {
 
         <div className="roomidbox">
           <input type="text" className="roomidinput" value={roomId} readOnly/>
-          <button className="copyBtn" onClick={copyRoomId}>
+          <button className="copyBtn border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0 " onClick={copyRoomId}>
             <TbCopy className="copyicon" />
           </button>
         </div>
 
-        <button className="btn leaveBtn" onClick={leaveRoom}>
+        <button className="btn leaveBtn mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0" onClick={leaveRoom}>
           Leave
         </button>
       </div>
 
       <div className="editorWrap">
-        {/* <div class="code-editor">
-          <span class="control"></span>
-          <span class="control"></span>
-          <span class="control"></span> */}
-        <Editor
-          socketRef={socketRef}
-          roomId={roomId}
-          onCodeChange={(code) => {
-            codeRef.current = code;
-          }}
+        
+        <MainEditor
+        socketRef={socketRef}
+        roomId={roomId}
+        onCodeChange={(code) => {
+          codeRef.current = code;
+        }}
         />
         {/* </div> */}
       </div>

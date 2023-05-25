@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home';
 import EditorPage from './pages/EditorPage';
+import Landing from "./components/Landing"
 
 function App() {
     return (
@@ -22,10 +23,12 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />}></Route>
+                    <Route path="/code" element={<Landing/>}></Route>
                     <Route
                         path="/editor/:roomId"
                         element={<EditorPage />}
                     ></Route>
+                    
                 </Routes>
             </BrowserRouter>
         </>

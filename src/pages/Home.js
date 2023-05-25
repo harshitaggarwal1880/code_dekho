@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Logo from "../utils/codedekho.jpg"
 
 const Home = () => {
     const navigate = useNavigate();
@@ -34,9 +35,12 @@ const Home = () => {
         }
     };
     return (
-        <div className="homePageWrapper">
+        <div className="homePageWrapper bg-gradient-to-br from-blue-500 to-purple-500">
             <div className="formWrapper">
-                    <h1 className='heading'> Code Dheko </h1>
+                    {/* <h1 className='heading'> Code Dheko </h1> */}
+                    <div className='flex justify-center items-center mb-4'>
+                    <img src={Logo} alt="logo" className='h-[4rem]'  />
+                    </div>
                 <h4 className="mainLabel">Join Room using Username and RoomID</h4>
                 <div className="inputGroup">
                     <input

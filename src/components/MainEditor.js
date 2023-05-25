@@ -16,14 +16,12 @@ import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 import Codeeditor from "./Codeeditor";
+import ACTIONS from "../Actions";
 
 const javascriptDefault = `
-/* Javascript example */
 
 
-// print Hello World
-
-console.log("Hello World");
+print("Hello World");
 
 `;
 
@@ -33,7 +31,12 @@ const MainEditor = ({ socketRef, roomId, onCodeChange }) => {
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState("cobalt");
-  const [language, setLanguage] = useState(languageOptions[0]);
+  const [language, setLanguage] = useState({
+    id: 71,
+    name: "Python (3.8.1)",
+    label: "Python (3.8.1)",
+    value: "python",
+  });
 
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
@@ -110,6 +113,26 @@ const MainEditor = ({ socketRef, roomId, onCodeChange }) => {
       });
   };
 
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on(ACTIONS.CODE_CHANGE, ({ type, code }) => {
+        if (type == "output" || type == "all") {
+          if (code.output !== null) {
+            setProcessing(true);
+            setOutputDetails(code.output);
+            onCodeChange("output", code.output);
+            setProcessing(false);
+            console.log(code.output);
+          }
+        }
+      });
+    }
+
+    return () => {
+      socketRef.current.off(ACTIONS.CODE_CHANGE);
+    };
+  }, [socketRef.current]);
+
   const checkStatus = async (token) => {
     const options = {
       method: "GET",
@@ -133,7 +156,19 @@ const MainEditor = ({ socketRef, roomId, onCodeChange }) => {
         return;
       } else {
         setProcessing(false);
+
         setOutputDetails(response.data);
+
+        onCodeChange("output", response.data);
+
+        socketRef.current.emit(ACTIONS.CODE_CHANGE, {
+          roomId,
+          type: "output",
+          code: {
+            output: response.data,
+          },
+        });
+
         showSuccessToast(`Compiled Successfully!`);
         console.log("response.data", response.data);
         return;
@@ -202,10 +237,21 @@ const MainEditor = ({ socketRef, roomId, onCodeChange }) => {
 
       <div className="flex flex-row">
         <div className="px-4 py-2">
-          <LanguagesDropdown onSelectChange={onSelectChange} />
+          <LanguagesDropdown
+            onSelectChange={onSelectChange}
+            socketRef={socketRef}
+            roomId={roomId}
+            onCodeChange={onCodeChange}
+          />
         </div>
         <div className="px-4 py-2">
-          <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
+          <ThemeDropdown
+            socketRef={socketRef}
+            roomId={roomId}
+            onCodeChange={onCodeChange}
+            handleThemeChange={handleThemeChange}
+            theme={theme}
+          />
         </div>
       </div>
       <div className="flex flex-row space-x-4 items-start px-4 py-2">
@@ -225,6 +271,9 @@ const MainEditor = ({ socketRef, roomId, onCodeChange }) => {
           <OutputWindow outputDetails={outputDetails} />
           <div className="flex flex-col items-end">
             <CustomInput
+              socketRef={socketRef}
+              roomId={roomId}
+              onCodeChange={onCodeChange}
               customInput={customInput}
               setCustomInput={setCustomInput}
             />

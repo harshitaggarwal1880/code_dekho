@@ -45,13 +45,13 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on(ACTIONS.CODE_CHANGE, ({ roomId, code }) => {
-        socket.in(roomId).emit(ACTIONS.CODE_CHANGE, { code });
-        console.log("Code change ", code);
+    socket.on(ACTIONS.CODE_CHANGE, ({ roomId,type, code }) => {
+        socket.in(roomId).emit(ACTIONS.CODE_CHANGE, { type, code });
+        console.log("Code change ",type, code);
     });
 
-    socket.on(ACTIONS.SYNC_CODE, ({ socketId, code }) => {
-        io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
+    socket.on(ACTIONS.SYNC_CODE, ({ socketId,type, code }) => {
+        io.to(socketId).emit(ACTIONS.CODE_CHANGE, {type, code });
     });
 
     socket.on('disconnecting', () => {

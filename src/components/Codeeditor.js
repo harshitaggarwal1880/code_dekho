@@ -12,28 +12,32 @@ const Codeeditor = ({
   code,
   theme,
 }) => {
-    
   const [value, setValue] = useState(code || "");
 
   const handleEditorChange = (value) => {
     setValue(value);
-    onCodeChange(value);
+    onCodeChange("code", value);
     onChange("code", value);
     console.log(value);
     socketRef.current.emit(ACTIONS.CODE_CHANGE, {
       roomId,
-      code: value,
+      type: "code",
+      code: {
+        code: value,
+      },
     });
   };
 
   useEffect(() => {
     if (socketRef.current) {
-      socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
-        if (code !== null) {
-          setValue(code);
-          onCodeChange(code);
-          onChange("code", code);
-          console.log(code);
+      socketRef.current.on(ACTIONS.CODE_CHANGE, ({type, code }) => {
+        if (type == "code"|| type=="all") {
+          if (code.code !== null) {
+            setValue(code.code);
+            onCodeChange("code", value);
+            onChange("code", code.code);
+            console.log(code.code);
+          }
         }
       });
     }

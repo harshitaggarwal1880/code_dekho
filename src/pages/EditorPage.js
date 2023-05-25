@@ -52,6 +52,7 @@ const EditorPage = () => {
           setClients(clients);
           socketRef.current.emit(ACTIONS.SYNC_CODE, {
             code: codeRef.current,
+            type: "all",
             socketId,
           });
         }
@@ -82,6 +83,40 @@ const EditorPage = () => {
       console.error(err);
     }
   }
+
+  const onCodeChange = (type,code) => {
+    if(type==="code"){
+      codeRef.current = {
+        ...codeRef.current,
+        code: code,
+      }
+
+    }
+    if(type==="input"){
+      codeRef.current = {
+        ...codeRef.current,
+        input: code
+      }
+
+    }
+
+    if(type==="language"){
+      codeRef.current = {
+        ...codeRef.current,
+        language: code
+      }
+
+    }
+
+    if(type==="output"){
+      codeRef.current = {
+        ...codeRef.current,
+        output: code
+      }
+
+    }
+  }
+
 
   function leaveRoom() {
     reactNavigator("/");
@@ -129,9 +164,7 @@ const EditorPage = () => {
         <MainEditor
         socketRef={socketRef}
         roomId={roomId}
-        onCodeChange={(code) => {
-          codeRef.current = code;
-        }}
+        onCodeChange={onCodeChange}
         />
         {/* </div> */}
       </div>

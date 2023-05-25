@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 const OutputWindow = ({ outputDetails }) => {
+
+
+  
+
   const getOutput = () => {
     let statusId = outputDetails?.status?.id;
 
@@ -33,6 +37,10 @@ const OutputWindow = ({ outputDetails }) => {
       );
     }
   };
+
+
+
+
   return (
     <>
       <h1 className="font-bold text-xl bg-clip-text text-white bg-gradient-to-r from-slate-900 to-slate-700 mb-2">

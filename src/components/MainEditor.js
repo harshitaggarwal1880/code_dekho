@@ -43,7 +43,7 @@ const MainEditor = ({ socketRef, roomId, onCodeChange }) => {
 
   const Rapid_api_url = "https://judge0-ce.p.rapidapi.com/submissions";
   const Rapid_api_host = "judge0-ce.p.rapidapi.com";
-  const Rapid_api_key = "7446fdbb2bmsh6a803a7458a06c5p10102djsnfd56d95ef7b2";
+  const Rapid_api_key = "2108bd5b7amsh9e0268f67a7e3afp16b499jsn9295fb735fb3";
 
   const onSelectChange = (sl) => {
     console.log("selected Option...", sl);
@@ -86,7 +86,7 @@ const MainEditor = ({ socketRef, roomId, onCodeChange }) => {
         "content-type": "application/json",
         "Content-Type": "application/json",
         "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
-        "X-RapidAPI-Key": "7446fdbb2bmsh6a803a7458a06c5p10102djsnfd56d95ef7b2",
+        "X-RapidAPI-Key": "2108bd5b7amsh9e0268f67a7e3afp16b499jsn9295fb735fb3",
       },
       data: formData,
     };

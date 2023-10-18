@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
 
     socket.on(ACTIONS.CODE_CHANGE, ({ roomId,type, code }) => {
         socket.in(roomId).emit(ACTIONS.CODE_CHANGE, { type, code });
-        console.log("Code change ",type, code);
+        // console.log("Code change ",type, code);
     });
 
     socket.on(ACTIONS.SYNC_CODE, ({ socketId,type, code }) => {

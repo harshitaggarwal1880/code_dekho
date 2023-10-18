@@ -130,16 +130,16 @@ const EditorPage = () => {
     <div className="mainWrap">
       <div className="aside">
         <div className="asideInner">
-          <div className="logo flex justify-center items-center">
+          <div className="logo flex justify-center items-center my-2">
           <img src={Logo} alt="logo" className="h-[3rem]"/>
-            {/* <h1 className="heading"> Code Dheko </h1> */}
+            {/* <h1 className="text-[1.5rem] font-bold uppercase w-full text-center headerfont text-white [text-shadow:_0_2px_#000,2px_0_#000,-2px_0_#000,0_-2px_#000]"> Code Dheko </h1> */}
           </div>
 
           {/* <div className="filestr">
             <div className="jsfile bg-black"> index.js</div>
           </div> */}
 
-          <h3>Contributors</h3>
+          <h3 className="font-bold my-4 text-lg"> Contributors</h3>
           <div className="clientsList">
             {clients.map((client) => (
               <Client key={client.socketId} username={client.username} />
@@ -149,12 +149,12 @@ const EditorPage = () => {
 
         <div className="roomidbox">
           <input type="text" className="roomidinput" value={roomId} readOnly/>
-          <button className="copyBtn border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0 " onClick={copyRoomId}>
+          <button className="copyBtn border-2 border-black z-10 rounded-md shadow-[3px_3px_rgba(0,0,0)] px-4  hover:bg-slate-200 active:shadow-[0px_0px_rgba(0,0,0)] active:translate-x-[1px] active:translate-y-[1px] transition duration-200 bg-white flex-shrink-0 " onClick={copyRoomId}>
             <TbCopy className="copyicon" />
           </button>
         </div>
 
-        <button className="btn leaveBtn mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0" onClick={leaveRoom}>
+        <button className="btn leaveBtn mt-4 border-2 text-black border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0" onClick={leaveRoom}>
           Leave
         </button>
       </div>

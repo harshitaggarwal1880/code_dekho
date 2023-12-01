@@ -14,13 +14,13 @@ app.get("/api/test", (req,res)=>{
     res.send("Server is running");
 })
 
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./build/index.html"));
+// app.use((req, res, next) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./build/index.html"));
+});
 
 
 const userSocketMap = {};
